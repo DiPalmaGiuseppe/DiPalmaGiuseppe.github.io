@@ -209,7 +209,7 @@ function checkTotemVictory() {
     const goalPos = new THREE.Vector3(0, totem.position.y + 10, 0);
     const dist = playerPos.distanceTo(goalPos);
 
-    if (dist < totemReachDistance && hudFishTypes.size >= 2) {
+    if (dist < totemReachDistance && hudFishTypes.size >= 4) {
         victoryTriggered = true;
         showVictoryHUD();
     }
