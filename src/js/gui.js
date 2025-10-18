@@ -223,12 +223,12 @@ function showVictoryHUD() {
     hudScene.add(victoryBox);
 
     // --- Victory text ---
-    victoryText = makeTextSprite("VITTORIA!", "#ffff00", 128);
+    victoryText = makeTextSprite("You Win!", "#ffff00", 128);
     victoryText.position.set(centerX, centerY + 20, 0.1);
     hudScene.add(victoryText);
 
     // --- Restart instruction ---
-    restartText = makeTextSprite("Premi R per ricominciare", "#ffffff", 32);
+    restartText = makeTextSprite("Press R to restart", "#ffffff", 32);
     restartText.position.set(centerX, centerY - 70, 0.1);
     hudScene.add(restartText);
 

@@ -163,12 +163,16 @@ async function loadSceneModels() {
         await loadModel('shark', 'models/shark/scene.gltf', new THREE.Vector3(0, 0, 1));
         await loadModel('koi_fish', 'models/koi_fish/scene.gltf', new THREE.Vector3(1, 0, 0));
         await loadModel('turtle', 'models/turtle/scene.gltf', new THREE.Vector3(0, 0, -1));
+        await loadModel('demanosi', 'models/demanosi/scene.gltf', new THREE.Vector3(0, 0, 1));
+        await loadModel('lown', 'models/lown/scene.gltf', new THREE.Vector3(-1, 0, 0));
         await loadModel('water_plants', 'models/water_plant/scene.gltf', new THREE.Vector3(0, 1, 0));
 
-        spawnClones('manta', 'models/manta/scene.gltf', 10, null, { baseSpeed: 3, scaleMin: 2, scaleMax: 4 });
+        spawnClones('manta', 'models/manta/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 2, scaleMax: 4 });
         spawnClones('shark', 'models/shark/scene.gltf', 2, null, { baseSpeed: 1.5, scaleMin: 0.01, scaleMax: 0.02 });
-        spawnClones('koi_fish', 'models/koi_fish/scene.gltf', 10, null, { baseSpeed: 4, scaleMin: 0.8, scaleMax: 1 });
+        spawnClones('koi_fish', 'models/koi_fish/scene.gltf', 6, null, { baseSpeed: 3.5, scaleMin: 0.8, scaleMax: 1 });
         spawnClones('turtle', 'models/turtle/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 10, scaleMax: 20 });
+        spawnClones('demanosi', 'models/demanosi/scene.gltf', 6, null, { baseSpeed: 2.5, scaleMin: 5, scaleMax: 10 });
+        spawnClones('lown', 'models/lown/scene.gltf', 6, null, { baseSpeed: 2, scaleMin: .1, scaleMax: .3 });
         spawnPlantGroups('water_plants', 12, 30, { scaleMin: 0.05, scaleMax: 0.15 });
     } catch (e) {
         console.error('Error loading models', e);

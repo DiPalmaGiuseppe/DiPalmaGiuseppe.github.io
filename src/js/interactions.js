@@ -139,34 +139,33 @@ function updateShark(shark, dt) {
 }
 
 // === FISH MOVEMENT AND AI ===
-function updateFish(fish, dt) {
-    const mesh = fish.mesh;
-    const effectiveDt = dt * fish.baseSpeed;
-
+function updateFish(fish, dt) { 
+    const mesh = fish.mesh; const effectiveDt = dt * fish.baseSpeed;
+    // --- Boundary handling --- 
     const limit = TERRAIN_SIZE / 2 - 5;
-    if (mesh.position.x < -limit || mesh.position.x > limit ||
-        mesh.position.z < -limit || mesh.position.z > limit) {
-        // return towards aquarium center
-        const toCenter = new THREE.Vector3(0, mesh.position.y, 0).sub(mesh.position).normalize();
+    if (mesh.position.x < -limit || mesh.position.x > limit
+        || mesh.position.z < -limit || mesh.position.z > limit) {
+        const center = new THREE.Vector3(0, mesh.position.y, 0);
+        const toCenter = center.clone().sub(mesh.position).normalize();
         fish.targetDir.lerp(toCenter, 0.05).normalize();
-        fish.changeTimer = 2 + Math.random() * 2;
-    }
-
-    // rotate smoothly towards targetDir
-    const forwardAxis = modelAxes[fish.name] || new THREE.Vector3(0, 0, 1);
-    const targetQuat = new THREE.Quaternion().setFromUnitVectors(forwardAxis.clone(), fish.targetDir.clone());
-    mesh.quaternion.slerp(targetQuat, 0.1 * fish.baseSpeed);
-
-    // move along targetDir
-    const moveDir = fish.targetDir.clone().normalize();
-    mesh.position.add(moveDir.multiplyScalar(fish.speed * effectiveDt));
-
-    // gentle vertical bobbing
-    mesh.position.y += Math.sin(Date.now() * 0.002 + mesh.position.x + mesh.position.z) * 0.005 * fish.baseSpeed;
-
-    // clamp vertical position
-    mesh.position.y = THREE.MathUtils.clamp(mesh.position.y, 5, 25);
-}
+        fish.changeTimer = 2 + Math.random() * 2; }
+        
+        // --- Smooth horizontal rotation (yaw) ---
+        const forwardAxis = modelAxes[fish.name] || new THREE.Vector3(0, 0, 1);
+        const targetQuat = new THREE.Quaternion().setFromUnitVectors(forwardAxis.clone(), fish.targetDir.clone());
+        mesh.quaternion.slerp(targetQuat, 0.1 * fish.baseSpeed);
+        
+        // --- Move along targetDir ---
+        const moveDir = fish.targetDir.clone().normalize();
+        mesh.position.add(moveDir.multiplyScalar(fish.speed * effectiveDt));
+        
+        // --- Gentle vertical bobbing ---
+        mesh.position.y += Math.sin(Date.now() * 0.002 + mesh.position.x + mesh.position.z) * 0.005 * fish.baseSpeed;
+        
+        // --- Clamp vertical position --- 
+        if (mesh.position.y < 5) mesh.position.y = 5;
+        if (mesh.position.y > 25) mesh.position.y = 25; 
+}    
 
 // === FISH COLLECTION ===
 const FISH_PICKUP_RADIUS = 5;
@@ -206,7 +205,7 @@ function checkTotemVictory() {
 
     const totem = seabed.children.find(c => c.type === "Group" && c.name === "totemPlane");
     const playerPos = camera.position;
-    const totemReachDistance = 5;
+    const totemReachDistance = 10;
     const goalPos = new THREE.Vector3(0, totem.position.y + 10, 0);
     const dist = playerPos.distanceTo(goalPos);
 
