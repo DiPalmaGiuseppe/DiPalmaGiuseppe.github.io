@@ -1,0 +1,11 @@
+Model Information:
+* title:	Water plant
+* source:	https://sketchfab.com/3d-models/water-plant-b536fec3648f485087c8dd280e749502
+* author:	Nataly (https://sketchfab.com/biko)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Water plant" (https://sketchfab.com/3d-models/water-plant-b536fec3648f485087c8dd280e749502) by Nataly (https://sketchfab.com/biko) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
