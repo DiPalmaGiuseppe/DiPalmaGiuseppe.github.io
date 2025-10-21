@@ -173,7 +173,7 @@ async function loadSceneModels() {
         spawnClones('turtle', 'models/turtle/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 10, scaleMax: 20 });
         spawnClones('demanosi', 'models/demanosi/scene.gltf', 6, null, { baseSpeed: 2.5, scaleMin: 5, scaleMax: 10 });
         spawnClones('lown', 'models/lown/scene.gltf', 6, null, { baseSpeed: 2, scaleMin: .1, scaleMax: .3 });
-        spawnPlantGroups('water_plants', 12, 30, { scaleMin: 0.05, scaleMax: 0.15 });
+        spawnPlantGroups('water_plants', 10, 20, { scaleMin: 0.05, scaleMax: 0.15 });
     } catch (e) {
         console.error('Error loading models', e);
     }
