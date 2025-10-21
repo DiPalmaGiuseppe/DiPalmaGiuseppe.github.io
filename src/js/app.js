@@ -105,8 +105,8 @@ function animate() {
         fishData.forEach(f => updateFish(f, dt));
         sharkData.forEach(s => updateShark(s, dt));
 
-        if (bubbles?.userData.update) bubbles.userData.update(dt);
-        seabed?.children.forEach(child => child.userData.update?.(dt));
+        bubbles.userData.update(dt);
+        seabed.children.forEach(child => child.userData.update?.(dt));
 
         updateUnderwaterEffect();
         updatePlayerOxygen(dt);

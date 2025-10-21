@@ -200,15 +200,12 @@ function attemptCatchFish() {
 let victoryTriggered = false;
 let victorySprite;
 
+const totemReachDistance = 10;
+
 function checkTotemVictory() {
-    if (victoryTriggered) return;
+    if (victoryTriggered || !pos_initialized) return;
 
-    const totem = seabed.children.find(c => c.type === "Group" && c.name === "totemPlane");
-    const playerPos = camera.position;
-    const totemReachDistance = 10;
-    const goalPos = new THREE.Vector3(0, totem.position.y + 10, 0);
-    const dist = playerPos.distanceTo(goalPos);
-
+    const dist = camera.position.distanceTo(goalPos);
     if (dist < totemReachDistance && hudFishTypes.size >= 4) {
         victoryTriggered = true;
         showVictoryHUD();

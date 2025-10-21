@@ -1,5 +1,6 @@
 // === SEABED ===
 let seabed, bubblesSystem;
+let goalPos, pos_initialized = false;
 
 // --- Create seabed terrain with sand and rocks ---
 function createSeabed(textures) {
@@ -49,6 +50,9 @@ function createSeabed(textures) {
     const totemY = getTerrainHeight(totemX, totemZ) + totem.position.y;
     totem.position.set(totemX, totemY, totemZ);
     seabed.add(totem);
+
+    goalPos = new THREE.Vector3(0, totemY + 10, 0);
+    pos_initialized = true;
 
     // rocks around totem
     const ringRockCount = 8;
