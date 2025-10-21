@@ -13,7 +13,7 @@ function loadTextures() {
         // --- SAND TEXTURE ---
         const sandT = textureLoader.load('textures/sand.jpg', checkDone, undefined, reject);
         sandT.wrapS = sandT.wrapT = THREE.RepeatWrapping;
-        sandT.repeat.set(4, 4);
+        sandT.repeat.set(1, 1);
         textures.sandT = sandT;
 
         // --- ROCK TEXTURE ---
