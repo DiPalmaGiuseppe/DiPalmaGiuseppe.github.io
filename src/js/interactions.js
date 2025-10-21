@@ -143,8 +143,8 @@ function updateFish(fish, dt) {
     const mesh = fish.mesh; const effectiveDt = dt * fish.baseSpeed;
     // --- Boundary handling --- 
     const limit = TERRAIN_SIZE / 2 - 5;
-    if (mesh.position.x < -limit || mesh.position.x > limit
-        || mesh.position.z < -limit || mesh.position.z > limit) {
+    if (mesh.position.x < - limit + 10 || mesh.position.x > limit - 10
+        || mesh.position.z < -limit + 10 || mesh.position.z > limit - 10) {
         const center = new THREE.Vector3(0, mesh.position.y, 0);
         const toCenter = center.clone().sub(mesh.position).normalize();
         fish.targetDir.lerp(toCenter, 0.05).normalize();
