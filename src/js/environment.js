@@ -20,6 +20,7 @@ function createSeabed(textures) {
         const y = Math.sin(x * 0.1) * 2 + Math.cos(z * 0.15) * 1.5 + (Math.random() - 0.5) * 1.0;
         geom.attributes.position.setY(i, y);
     }
+    
     geom.computeVertexNormals();
 
     // sand plane

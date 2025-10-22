@@ -21,12 +21,6 @@ function updateDrone(dt) {
     if (k.isDown('ArrowUp')) drone.rotation.x += drone.userData.rotationSpeed * dt;
     if (k.isDown('ArrowDown')) drone.rotation.x -= drone.userData.rotationSpeed * dt;
 
-    // --- Apply velocity damping ---
-    droneVelocity.multiplyScalar(0.98);
-
     // --- Update drone position ---
     drone.position.add(droneVelocity.clone());
-
-    // Prevent drone from going below floor
-    if (drone.position.y < 0.5) drone.position.y = 0.5;
 }
