@@ -20,7 +20,7 @@ function createSeabed(textures) {
         const y = Math.sin(x * 0.1) * 2 + Math.cos(z * 0.15) * 1.5 + (Math.random() - 0.5) * 1.0;
         geom.attributes.position.setY(i, y);
     }
-    
+
     geom.computeVertexNormals();
 
     // sand plane
@@ -86,13 +86,30 @@ function addBubblesSystem() {
         const size = Math.random() * 1.5 + 0.5;
         const geom = new THREE.SphereGeometry(size, 16, 12);
 
-        const mat = new THREE.MeshStandardMaterial({
-            color: 0xcfefff,
-            transparent: true,
-            opacity: 0.8,
-            metalness: 0.1,
-            roughness: 0.8
-        });
+        const translucent = Math.random() < 0.5;
+
+        let mat;
+        if (translucent) {
+            mat = new THREE.MeshPhysicalMaterial({
+                color: 0xe8ffff,
+                transparent: true,
+                opacity: 0.9,
+                transmission: 0.9,
+                thickness: 0.5 + Math.random() * 1.0,
+                roughness: 0.05,
+                metalness: 0.0,
+                ior: 1.33, // water refraction value
+                envMapIntensity: 1.2
+            });
+        } else {
+            mat = new THREE.MeshStandardMaterial({
+                color: 0xcfefff,
+                transparent: true,
+                opacity: 0.7 + Math.random() * 0.2,
+                metalness: 0.1,
+                roughness: 0.8
+            });
+        }
 
         const m = new THREE.Mesh(geom, mat);
 
@@ -103,24 +120,23 @@ function addBubblesSystem() {
             (Math.random() - 0.5) * TERRAIN_SIZE
         );
 
-        // additional random scale
-        m.scale.setScalar(Math.random() * .6);
+        // random scale
+        m.scale.setScalar(Math.random() * 0.6);
 
         bubblesSystem.add(m);
 
-        // store speed, larger variability
         particles.push({ mesh: m, speed: 0.6 + Math.random() * 1.5 });
     }
 
     // update function for rising bubbles
     bubblesSystem.userData.update = function (dt) {
         for (const p of particles) {
-            p.mesh.position.y += p.speed * dt * 3.0; // faster rise
+            p.mesh.position.y += p.speed * dt * 3.0;
 
-            // reset position when bubble reaches top
+            // reset when reaching top
             if (p.mesh.position.y > 15) p.mesh.position.y = -10 - Math.random() * 5;
 
-            // opacity fades as bubble rises
+            // fade opacity with height
             p.mesh.material.opacity = Math.max(0, 1 - (p.mesh.position.y + 10) / 25);
         }
     };
