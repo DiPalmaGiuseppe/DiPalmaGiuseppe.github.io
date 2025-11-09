@@ -68,7 +68,13 @@ function spawnClones(name, url, count, positionFn = null, options = {}) {
         let mixer = null;
         if (anims.length > 0) {
             mixer = new THREE.AnimationMixer(clone);
-            anims.forEach(clip => mixer.clipAction(clip).play());
+            anims.forEach(clip => {
+                mixer.clipAction(clip).play();
+                mixer.setTime(Math.random() * clip.duration);
+                mixer.userData = {
+                    speed: Math.random() * 0.7 + 0.3
+                };
+            });
             mixers.push(mixer);
         }
 
@@ -147,7 +153,13 @@ function spawnPlantGroups(name, groupCount = 12, plantsPerGroup = 20, options = 
             // Play animations if present
             if (anims.length > 0) {
                 const mixer = new THREE.AnimationMixer(clone);
-                anims.forEach(clip => mixer.clipAction(clip).play());
+                anims.forEach(clip => {
+                    mixer.clipAction(clip).play();
+                    mixer.setTime(Math.random() * clip.duration);
+                    mixer.userData = {
+                        speed: Math.random() * 0.7 + 0.3
+                    };
+                });
                 mixers.push(mixer);
             }
         }

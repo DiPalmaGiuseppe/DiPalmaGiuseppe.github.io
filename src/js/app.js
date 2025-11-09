@@ -101,7 +101,11 @@ function animate() {
 
     if (!gameOver) {
         preventCameraThroughFish();
-        mixers.forEach(m => m.update(dt * Math.random() * .5 + Math.random() * dt * .5));
+        mixers.forEach(m => {
+            const s = m.userData?.speed ?? 1;
+            m.update(dt * s);
+        });
+
         fishData.forEach(f => updateFish(f, dt));
         sharkData.forEach(s => updateShark(s, dt));
 
