@@ -14,6 +14,8 @@ let stats;
 
 let gameOver = false;
 
+let water_surface;
+
 const OXYGEN_DRAIN_RATE = 5;
 const OXYGEN_REFILL_RATE = 25;
 const HEALTH_LOSS_ON_NO_OXYGEN = 10;
@@ -70,7 +72,9 @@ function loadScene() {
     bubbles = addBubblesSystem()
     scene.add(bubbles);
     scene.add(createAquariumBorder());
-    scene.add(createWaterSurface());
+    
+    water_surface = createWaterSurface();
+    scene.add(water_surface);
 
     setupLights(scene);
     updateUnderwaterEffect();
@@ -85,6 +89,7 @@ function updateAspectRatio() {
 }
 
 // Main render loop
+let elapsedTime = 0;
 function animate() {
     requestAnimationFrame(animate);
 
@@ -98,6 +103,7 @@ function animate() {
 
     renderer.clear();
     const dt = clock.getDelta();
+    elapsedTime += dt;
 
     if (!gameOver) {
         preventCameraThroughFish();
@@ -112,6 +118,7 @@ function animate() {
         bubbles.userData.update(dt);
         seabed.children.forEach(child => child.userData.update?.(dt));
 
+        updateWaterSurface(water_surface, elapsedTime);
         updateUnderwaterEffect();
         updatePlayerOxygen(dt);
         updateSharkDamage(dt);

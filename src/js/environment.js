@@ -208,25 +208,60 @@ function createAquariumBorder() {
 // --- Water surface ---
 function createWaterSurface() {
     const glassHeight = 40;
-    const halfSize = TERRAIN_SIZE / 2;
 
-    const geometry = new THREE.PlaneGeometry(TERRAIN_SIZE, TERRAIN_SIZE, 1, 1);
+    // Aumenta le suddivisioni per onde più fluide
+    const geometry = new THREE.PlaneGeometry(TERRAIN_SIZE, TERRAIN_SIZE, 150, 150);
     geometry.rotateX(-Math.PI / 2);
 
     const material = new THREE.MeshStandardMaterial({
         color: 0x66ccff,
         transparent: true,
-        opacity: 0.25,
+        opacity: 0.3,
         side: THREE.DoubleSide,
-        roughness: 0.1,
-        metalness: 0.0,
+        roughness: 0.08,
+        metalness: 0.15,
+        envMapIntensity: 1.0,
     });
 
     const water = new THREE.Mesh(geometry, material);
     water.position.y = glassHeight - 0.5;
     water.receiveShadow = false;
 
+    // salva le posizioni originali per le onde
+    water.userData.originalPositions = geometry.attributes.position.array.slice();
+
     return water;
+}
+
+// --- Update water surface vertices for wave effect ---
+function updateWaterSurface(water, time) {
+    const positions = water.geometry.attributes.position.array;
+    const original = water.userData.originalPositions;
+
+    const freq1 = 0.25, freq2 = 0.15;
+    const amp1 = 0.7,  amp2 = 0.9;
+    const speed1 = 0.8, speed2 = 1.3;
+
+    const moveX = 0.3 * time;
+    const moveZ = 0.2 * time;
+
+    for (let i = 0; i < positions.length; i += 3) {
+        const x = original[i];
+        const z = original[i + 2];
+
+        const y =
+            Math.sin((x + moveX) * freq1 + time * speed1) * amp1 +
+            Math.cos((z + moveZ) * freq2 + time * speed2) * amp2 +
+            Math.sin((x + z) * 0.15 + time * 3.5) * 0.05;
+
+        positions[i + 1] = y;
+    }
+
+    water.geometry.attributes.position.needsUpdate = true;
+
+    if (Math.floor(time * 60) % 10 === 0) {
+        water.geometry.computeVertexNormals();
+    }
 }
 
 // --- Underwater fog effect ---
@@ -240,6 +275,7 @@ function updateUnderwaterEffect() {
         scene.fog.density = 0.002;
     }
 }
+
 
 // --- Totem object ---
 function createTotem(textures) {
