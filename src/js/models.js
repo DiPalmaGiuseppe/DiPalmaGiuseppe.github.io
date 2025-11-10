@@ -193,8 +193,8 @@ async function loadSceneModels() {
         spawnClones('lown', 'models/lown/scene.gltf', 6, null, { baseSpeed: 2, scaleMin: .1, scaleMax: .3 });
         spawnClones('feather_fish', 'models/feather_fish/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 400, scaleMax: 600 });
         spawnClones('discus_fish', 'models/discus_fish/scene.gltf', 6, null, { baseSpeed: 2.5, scaleMin: 300, scaleMax: 600 });
-        spawnPlantGroups('coral_1', 15, 2, {scaleMin: .7, scaleMax: 2 });
-        spawnPlantGroups('coral_2', 15, 2, {scaleMin: .2, scaleMax: .7 });
+        spawnPlantGroups('coral_1', 15, 4, {scaleMin: .7, scaleMax: 2 });
+        spawnPlantGroups('coral_2', 15, 4, {scaleMin: .2, scaleMax: .7 });
         spawnPlantGroups('water_plants', 15, 10, { scaleMin: 0.05, scaleMax: 0.15 });
     } catch (e) {
         console.error('Error loading models', e);
