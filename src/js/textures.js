@@ -40,12 +40,12 @@ function loadTextures() {
 
         // --- CUBEMAP / BACKGROUND ---
         const urls = [
-            'textures/background/posx.jpg',
-            'textures/background/negx.jpg',
-            'textures/background/posy.jpg',
-            'textures/background/negy.jpg',
-            'textures/background/posz.jpg',
-            'textures/background/negz.jpg',
+            'textures/background_2/px.jpg',
+            'textures/background_2/nx.jpg',
+            'textures/background_2/py.jpg',
+            'textures/background_2/ny.jpg',
+            'textures/background_2/pz.jpg',
+            'textures/background_2/nz.jpg',
         ];
 
         cubeLoader.load(

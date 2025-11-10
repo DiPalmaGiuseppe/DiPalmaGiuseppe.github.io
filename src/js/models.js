@@ -137,6 +137,8 @@ function spawnPlantGroups(name, groupCount = 12, plantsPerGroup = 20, options = 
             const y = getTerrainHeight(x, z) + 0.1; // slight offset
             clone.position.set(x, y, z);
 
+            clone.rotation.y = Math.random() * Math.PI * 2;
+
             // Clone materials
             clone.traverse(n => {
                 if (n.isMesh) {
@@ -177,6 +179,10 @@ async function loadSceneModels() {
         await loadModel('turtle', 'models/turtle/scene.gltf', new THREE.Vector3(0, 0, -1));
         await loadModel('demanosi', 'models/demanosi/scene.gltf', new THREE.Vector3(0, 0, 1));
         await loadModel('lown', 'models/lown/scene.gltf', new THREE.Vector3(-1, 0, 0));
+        await loadModel('feather_fish', 'models/feather_fish/scene.gltf', new THREE.Vector3(0, 0, 1));
+        await loadModel('discus_fish', 'models/discus_fish/scene.gltf', new THREE.Vector3(0, 0, 1));
+        await loadModel('coral_1', 'models/coral_piece/scene.gltf', new THREE.Vector3(0, 1, 0));
+        await loadModel('coral_2', 'models/coral/scene.gltf', new THREE.Vector3(0, 1, 0));
         await loadModel('water_plants', 'models/water_plant/scene.gltf', new THREE.Vector3(0, 1, 0));
 
         spawnClones('manta', 'models/manta/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 2, scaleMax: 4 });
@@ -185,7 +191,11 @@ async function loadSceneModels() {
         spawnClones('turtle', 'models/turtle/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 10, scaleMax: 20 });
         spawnClones('demanosi', 'models/demanosi/scene.gltf', 6, null, { baseSpeed: 2.5, scaleMin: 5, scaleMax: 10 });
         spawnClones('lown', 'models/lown/scene.gltf', 6, null, { baseSpeed: 2, scaleMin: .1, scaleMax: .3 });
-        spawnPlantGroups('water_plants', 10, 20, { scaleMin: 0.05, scaleMax: 0.15 });
+        spawnClones('feather_fish', 'models/feather_fish/scene.gltf', 6, null, { baseSpeed: 3, scaleMin: 400, scaleMax: 600 });
+        spawnClones('discus_fish', 'models/discus_fish/scene.gltf', 6, null, { baseSpeed: 2.5, scaleMin: 300, scaleMax: 600 });
+        spawnPlantGroups('coral_1', 15, 2, {scaleMin: .7, scaleMax: 2 });
+        spawnPlantGroups('coral_2', 15, 2, {scaleMin: .2, scaleMax: .7 });
+        spawnPlantGroups('water_plants', 15, 10, { scaleMin: 0.05, scaleMax: 0.15 });
     } catch (e) {
         console.error('Error loading models', e);
     }

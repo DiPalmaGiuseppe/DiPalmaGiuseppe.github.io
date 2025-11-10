@@ -81,12 +81,12 @@ function addBubblesSystem() {
     bubblesSystem = new THREE.Group();
     const particles = [];
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 500; i++) {
         // random size for each bubble
-        const size = Math.random() * 1.5 + 0.5;
+        const size = Math.random() * 2.3 + .2;
         const geom = new THREE.SphereGeometry(size, 16, 12);
 
-        const translucent = Math.random() < 0.5;
+        const translucent = Math.random() < 0.3;
 
         let mat;
         if (translucent) {
